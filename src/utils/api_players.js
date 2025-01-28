@@ -3,19 +3,23 @@ import { API_URL } from "../constants";
 import { toast } from "sonner";
 
 // (public api)
-export const getPlayers = async () => {
-  try {
-    const response = await axios.get(API_URL + "/players");
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
-};
+export const getPlayers = async (searchQuery = "") => {
+    try {
+      // Add the search query to the request if it's provided
+      const response = await axios.get(API_URL + "/players", {
+        params: { search: searchQuery },  // Pass the search query as a query parameter
+      });
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response?.data?.error || "An error occurred while fetching players.");
+    }
+  };
 
 // get Player (public data)
 export const getPlayer = async (_id) => {
   try {
-    const response = await axios.get(API_URL + "/players/" + _id);
+    const response = await axios.get(API_URL + "/player/" + _id);
     return response.data;
   } catch (error) {
     toast.error(error.response.data.error);

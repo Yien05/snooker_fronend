@@ -38,10 +38,10 @@ export const isUserLoggedIn = (cookies) => {
   return getCurrentUser(cookies) ? true : false;
 };
 
-export const isAdmin = (cookies) => {
-  const currentUser = getCurrentUser(cookies);
-  return currentUser && currentUser.role === "admin" ? true : false;
-};
+// export const isAdmin = (cookies) => {
+//   const currentUser = getCurrentUser(cookies);
+//   return currentUser && currentUser.role === "admin" ? true : false;
+// };
 
 // function to access cookies.currentUser.token
 export const getUserToken = (cookies) => {

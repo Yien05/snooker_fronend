@@ -52,11 +52,11 @@ function Header(props) {
 
           <Button
             variant={
-              location.pathname === "/players" ? "contained" : "outlined"
+              location.pathname === "/" ? "contained" : "outlined"
             }
             color="primary"
             LinkComponent={Link}
-            to="/players"
+            to="/"
             sx={{
               padding: "10px 20px",
             }}

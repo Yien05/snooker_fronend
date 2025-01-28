@@ -2,7 +2,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "sonner";
 import { CookiesProvider } from "react-cookie";
 import Players from "./pages/Players";
-import News from "./pages/Newds";
+import PlayerAddNew from "./pages/PlayerAddNew";
+import News from "./pages/News";
 import Matches from "./pages/Matches";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
@@ -14,7 +15,8 @@ function App() {
       <CookiesProvider defaultSetOptions={{ path: "/" }}>
         <BrowserRouter>
           <Routes>
-            <Route path="/players" element={<Players />} />
+            <Route path="/" element={<Players />} />
+            <Route path="/players/new" element={<PlayerAddNew />} />
             <Route path="/news" element={<News />} />
             <Route path="/matches" element={<Matches />} />
             <Route path="/login" element={<Login />} />

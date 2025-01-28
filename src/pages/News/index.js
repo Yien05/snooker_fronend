@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
 import Header from "../../components/Header";
 import { Button,Link,Typography, Container } from "@mui/material";
-import { getPlayers } from "../../utils/api_players";
+import { getNewds } from "../../utils/api_news";
 
-function Players() {
-  const [players, setPlayers] = useState([]);
+function News() {
+  const [news, setNews] = useState([]);
 
-  // get Players
+  // get News
   useEffect(() => {
-    getPlayers().then((data) => {
-      setPlayers(data);
+    getNewds().then((data) => {
+      setNews(data);
     });
   }, []);
 
@@ -17,7 +17,7 @@ function Players() {
     <Container>
       <Header />
       <Typography variant="h4" mb={4}>
-        Players
+        News
       </Typography>
       <Button
             LinkComponent={Link}
@@ -28,12 +28,12 @@ function Players() {
             Add New
           </Button>
       <Typography>
-        {players && players.length > 0 ? (
-          players.map((player) => (
-            <Typography>{player.name}</Typography>
+        {news && news.length > 0 ? (
+          news.map((newd) => (
+            <Typography>{newd.name}</Typography>
           ))
         ) : (
-          <Typography>No players available</Typography>
+          <Typography>No news available</Typography>
         )}
       </Typography>
     </Container>
@@ -41,4 +41,4 @@ function Players() {
   
 }
 
-export default Players;
+export default News;
