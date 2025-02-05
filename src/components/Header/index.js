@@ -5,7 +5,7 @@ import { isUserLoggedIn } from "../../utils/api_auth";
 
 function Header(props) {
   const { title = "Welcome To My Snooker Website" } = props;
-  const [cookies, removeCookie] = useCookies(["currentUser"]);
+  const [cookies, setCookie,removeCookie] = useCookies(["currentUser"]);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -15,6 +15,9 @@ function Header(props) {
     // redirect the user back to login page
     navigate("/login");
   };
+
+  const userLoggedIn = isUserLoggedIn(cookies);
+  const userRole = cookies?.currentUser?.role; 
 
   return (
     <Box
@@ -36,33 +39,36 @@ function Header(props) {
       </Typography>
       <Box display="flex">
         <Box display="flex" gap={2} sx={{ marginTop: 1 }}>
-          <Button
-            variant={
-              location.pathname === "/matches" ? "contained" : "outlined"
-            }
-            color="primary"
-            LinkComponent={Link}
-            to="/matches"
-            sx={{
-              padding: "10px 20px",
-            }}
-          >
-            Matches
-          </Button>
+          {userLoggedIn && (
+            <>
+              <Button
+                variant={location.pathname === "/matches" ? "contained" : "outlined"}
+                color="primary"
+                LinkComponent={Link}
+                to="/matches"
+                sx={{
+                  padding: "10px 20px",
+                }}
+              >
+                Matches
+              </Button>
 
-          <Button
-            variant={
-              location.pathname === "/" ? "contained" : "outlined"
-            }
-            color="primary"
-            LinkComponent={Link}
-            to="/"
-            sx={{
-              padding: "10px 20px",
-            }}
-          >
-            Players
-          </Button>
+              <Button
+                variant={location.pathname === "/" ? "contained" : "outlined"}
+                color="primary"
+                LinkComponent={Link}
+                to="/"
+                sx={{
+                  padding: "10px 20px",
+                }}
+              >
+                Players
+              </Button>
+
+              
+            </>
+          )}
+
           <Button
             variant={location.pathname === "/news" ? "contained" : "outlined"}
             color="primary"
@@ -74,12 +80,29 @@ function Header(props) {
           >
             News
           </Button>
+
+          {userLoggedIn && userRole === "admin" && (
+            <Button
+              variant={location.pathname === "/users" ? "contained" : "outlined"}
+              color="primary"
+              LinkComponent={Link}
+              to="/users"
+              sx={{
+                padding: "10px 20px",
+              }}
+            >
+              User
+            </Button>
+          )}
+         
+        
+
         </Box>
 
         <Box marginLeft={"auto"} gap={2} sx={{ marginTop: 1 }}>
-          {isUserLoggedIn(cookies) ? (
+          {userLoggedIn ? (
             <Box display={"flex"} alignItems={"center"}>
-              <Typography>Current User:{cookies.currentUser.name}</Typography>
+              <Typography>Current User: {cookies.currentUser.name}</Typography>
               <Button
                 color="primary"
                 sx={{
@@ -95,9 +118,7 @@ function Header(props) {
           ) : (
             <>
               <Button
-                variant={
-                  location.pathname === "/login" ? "contained" : "outlined"
-                }
+                variant={location.pathname === "/login" ? "contained" : "outlined"}
                 color="primary"
                 LinkComponent={Link}
                 to="/login"
@@ -108,9 +129,7 @@ function Header(props) {
                 Login
               </Button>
               <Button
-                variant={
-                  location.pathname === "/signup" ? "contained" : "outlined"
-                }
+                variant={location.pathname === "/signup" ? "contained" : "outlined"}
                 color="primary"
                 LinkComponent={Link}
                 to="/signup"

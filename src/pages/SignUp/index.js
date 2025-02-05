@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { Container, Typography, Box, TextField, Button } from "@mui/material";
 import Card from "@mui/material/Card";
+import { useNavigate } from "react-router-dom";
 import CardContent from "@mui/material/CardContent";
 import Header from "../../components/Header";
 import { toast } from "sonner";
 import { signup } from "../../utils/api_auth";
 
 function SignUp() {
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,6 +23,8 @@ function SignUp() {
     } else {
       // trigger the API
       const userData = await signup(name, email, password);
+      navigate("/login");
+
       console.log(userData);
     }
   };

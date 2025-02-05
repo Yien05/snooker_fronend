@@ -27,7 +27,7 @@ function Login() {
       });
       // redirect user back to home
       navigate("/");
-      toast.success("You have successfully login. Happy shopping!");
+      toast.success("You have successfully login!");
     }
   };
 

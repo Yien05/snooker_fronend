@@ -1,11 +1,11 @@
 import axios from "axios";
-import { API_URL } from "../constants";
 import { toast } from "sonner";
+import { API_URL } from "../constants";
 
 // (public api)
 export const getMatches = async () => {
   try {
-    const response = await axios.get(API_URL + "/matches");
+    const response = await axios.get(API_URL + "/matche");
     return response.data;
   } catch (error) {
     console.log(error);
@@ -22,18 +22,26 @@ export const getMatche = async (_id) => {
   }
 };
 
-// add new Newd (admin api)
-export const addNewMatche = async (name1,name2,date,score1,score2,time, token) => {
+// add new Matche (admin api)
+export const addNewMatche = async (
+  name1,
+  name2,
+  date,
+  time,
+  image1,
+  image2,
+  token
+) => {
   try {
     const response = await axios.post(
-      API_URL + "/newds",
+      API_URL + "/matche",
       {
         name1: name1,
-        name2:name2,
-        date:date,
-        score1:score1,
-        score2:score2,
-        time:time,
+        name2: name2,
+        date: date,
+        time: time,
+        image1: image1,
+        image2: image2,
       },
       {
         headers: {
@@ -48,13 +56,27 @@ export const addNewMatche = async (name1,name2,date,score1,score2,time, token) =
   }
 };
 
-// update Newd (admin api)
-export const editNewd = async (_id, name, token) => {
+// update Matche (admin api)
+export const editMatche = async (
+  _id,
+  name1,
+  name2,
+  date,
+  time,
+  image1,
+  image2,
+  token
+) => {
   try {
     const response = await axios.put(
-      API_URL + "/newds/" + _id,
+      API_URL + "/matche/" + _id,
       {
-        name: name,
+        name1: name1,
+        name2: name2,
+        date: date,
+        time: time,
+        image1: image1,
+        image2: image2,
       },
       {
         headers: {
@@ -68,10 +90,10 @@ export const editNewd = async (_id, name, token) => {
   }
 };
 
-// delete Newd (admin api)
-export const deleteNewd = async (_id, token) => {
+// delete Matche (admin api)
+export const deleteMatche = async (_id, token) => {
   try {
-    const response = await axios.delete(API_URL + `/newds/${_id}`, {
+    const response = await axios.delete(API_URL + `/matche/${_id}`, {
       headers: {
         Authorization: "Bearer " + token,
       },

@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Container,
@@ -11,18 +11,19 @@ import {
 } from "@mui/material";
 import Header from "../../components/Header";
 import { toast } from "sonner";
-import { addNewPlayer } from "../../utils/api_players";
+import { addNewNewd } from "../../utils/api_news";
 import { getUserToken, isAdmin } from "../../utils/api_auth";
 import { useCookies } from "react-cookie";
 import ButtonUpload from "../../components/ButtonUpload";
 import { uploadImage } from "../../utils/api_image";
 import { API_URL } from "../../constants";
 
-function PlayerAddNew() {
+function NewdAddNew() {
   const navigate = useNavigate();
   const [cookies] = useCookies(["currentUser"]);
   const token = getUserToken(cookies);
   const [name, setName] = useState("");
+  const [detial, setDetial] = useState("");
   const [image, setImage] = useState("");
 
   // check if is admin or not
@@ -34,24 +35,17 @@ function PlayerAddNew() {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    if (!name||!image) {
+    if (!name || !detial|| !image) {
       toast.error("Please fill out all the required fields");
       return;
     }
 
-    // trigger the add new Player API
-    const newPlayerData = await addNewPlayer(
-      name,
-      image,
-      token
-    );
+    const newNewdData = await addNewNewd(name, detial, image, token);
 
-    // check if the newPlayerData exists or not
-    if (newPlayerData) {
-      // show success message
-      toast.success("Player has been added successfully");
-      // redirect back to home page
-      navigate("/");
+    if (newNewdData) {
+      toast.success("New has been added successfully");
+
+      navigate("/news");
     }
   };
 
@@ -62,14 +56,13 @@ function PlayerAddNew() {
     setImage(image_url);
   };
 
-
   return (
     <Container>
       <Header />
       <Card elevation={5}>
         <CardContent>
           <Typography variant="h4" align="center" mb={4}>
-            Add New Player
+            Add New News
           </Typography>
           <Box mb={2}>
             <TextField
@@ -80,7 +73,15 @@ function PlayerAddNew() {
               onChange={(event) => setName(event.target.value)}
             />
           </Box>
-
+          <Box mb={2}>
+            <TextField
+              label="Detial"
+              required
+              fullWidth
+              value={detial}
+              onChange={(event) => setDetial(event.target.value)}
+            />
+          </Box>
           <Box mb={2}>
             {image !== "" ? (
               <>
@@ -90,7 +91,7 @@ function PlayerAddNew() {
                     style={{
                       width: "300px",
                       maxWidth: "300px",
-                      objectFit: "cover"
+                      objectFit: "cover",
                     }}
                   />
                 </div>
@@ -107,7 +108,6 @@ function PlayerAddNew() {
               />
             )}
           </Box>
-          
           <Button
             variant="contained"
             color="primary"
@@ -122,4 +122,4 @@ function PlayerAddNew() {
   );
 }
 
-export default PlayerAddNew;
+export default NewdAddNew;
