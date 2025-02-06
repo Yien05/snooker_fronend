@@ -6,7 +6,7 @@ import { toast } from "sonner";
 export const getNewds = async (sortBy = "", sortOrder = "") => {
   try {
     const response = await axios.get(API_URL + "/newd", {
-      params: { sortBy, sortOrder }, // Send sorting params in the request
+      params: { sortBy, sortOrder }, 
     });
     return response.data;
   } catch (error) {
