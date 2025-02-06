@@ -5,9 +5,7 @@ import { toast } from "sonner";
 // (public api)
 export const getPlayers = async (searchTerm = "") => {
   try {
-    const response = await axios.get(API_URL + "/player", {
-      name: { searchTerm },
-    });
+    const response = await axios.get(`${API_URL}/player?name=${searchTerm}`); 
     return response.data;
   } catch (error) {
     toast.error(error.response.data.error);

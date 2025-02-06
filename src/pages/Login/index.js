@@ -27,7 +27,9 @@ function Login() {
       });
       // redirect user back to home
       navigate("/");
-      toast.success("You have successfully login!");
+      if (userData) {
+        toast.success("You have successfully login!");
+      }
     }
   };
 

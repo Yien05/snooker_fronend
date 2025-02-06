@@ -25,7 +25,7 @@ export default function InputFileUpload(props) {
       tabIndex={-1}
       startIcon={<CloudUploadIcon />}
     >
-      Upload file
+      Upload player image
       <VisuallyHiddenInput
         type="file"
         accept={accept}

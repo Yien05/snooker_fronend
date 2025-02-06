@@ -29,7 +29,6 @@ function MatcheAddNew() {
   const [image1, setImage1] = useState("");
   const [image2, setImage2] = useState("");
 
-
   // check if is admin or not
   useEffect(() => {
     if (!isAdmin(cookies)) {
@@ -39,13 +38,21 @@ function MatcheAddNew() {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    if (!name1||!name2||!date||!time||!image1||!image2) {
+    if (!name1 || !name2 || !date || !time || !image1 || !image2) {
       toast.error("Please fill out all the required fields");
       return;
     }
 
     // trigger the add new Newd API
-    const newNewdData = await addNewMatche(name1,name2,date,time, image1,image2, token);
+    const newNewdData = await addNewMatche(
+      name1,
+      name2,
+      date,
+      time,
+      image1,
+      image2,
+      token
+    );
 
     // check if the newNewdData exists or not
     if (newNewdData) {
@@ -118,7 +125,9 @@ function MatcheAddNew() {
             {image1 !== "" ? (
               <>
                 <div>
-                  <p><b>Player 1</b></p>
+                  <p>
+                    <b>Player 1</b>
+                  </p>
                   <img
                     src={`${API_URL}/${image1}`}
                     style={{
@@ -146,7 +155,9 @@ function MatcheAddNew() {
             {image2 !== "" ? (
               <>
                 <div>
-                  <p><b>Player 2</b></p>
+                  <p>
+                    <b>Player 2</b>
+                  </p>
                   <img
                     src={`${API_URL}/${image2}`}
                     style={{
